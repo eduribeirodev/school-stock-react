@@ -78,7 +78,7 @@ export default function GraphicCard({ data = [], title = "Gráfico de Vendas" })
                         <Bar 
                             dataKey="valor" 
                             name="Total Vendido" 
-                            fill="#3B82F6"
+                            fill="#c41414"
                         /> 
                     </BarChart>
                 ) : (
