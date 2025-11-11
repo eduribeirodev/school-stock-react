@@ -72,7 +72,7 @@ export default function DashBoardTable({ alerts = [] }) {
                                         </p>
                                      
                                         <p className="text-gray-600 text-sm">
-                                            **{alert.productName}** - Quantidade: **{alert.quantity}** {alert.unit} (Mínimo: **{alert.minStock}**)
+                                            {alert.productName}** - Quantidade: {alert.quantity} {alert.unit} (Mínimo: {alert.minStock})
                                         </p>
                                     </div>
                                 </div>
