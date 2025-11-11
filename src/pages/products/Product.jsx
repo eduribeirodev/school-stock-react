@@ -60,13 +60,13 @@ export default function Products() {
     }
   };
   
-  const totalProdutos = totalProductsCount;
+  const totalProdutos = products.length;
 
   return (
     <div className="bg-gray-100 min-h-screen p-2 space-y-10">
       <Header
         title="Produtos"
-        SubTitle={`Gerencie os produtos (${totalProductsCount} no total)`}
+        SubTitle="Gerencie os produtos"
         titleButton="Novo Produto"
         iconButton={FaPlus}
         functionButton={handleOpenCreateModal}
