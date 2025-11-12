@@ -1,41 +1,64 @@
-import myAxios from "../api/axiosInstance";
+// src/hooks/useAuth.js
 
-// Helper para obter o token
-const getToken = () => localStorage.getItem("token");
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import AuthService from "../services/AuthService"; 
 
-// Helper para headers de autenticação
-const getAuthHeaders = () => ({
-  Authorization: `Bearer ${getToken()}`,
-  Accept: "application/json",
-});
+export default function useAuth() {
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-const AuthService = {
-  
-  // Função para logar na aplicação
-  login: async (user, password) => {
-    const loginData = {
-      number_registration: user,
-      password,
-    };
+  // Função para lidar com o login do utilizador
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(false);
 
-    const response = await myAxios.post("user/login", loginData);
-    return response.data;
-  },
-
-  // Função para NOTIFICAR A API sobre o logout
-  logout: async () => {
     try {
-      const token = getToken();
+      const data = await AuthService.login(user, password);
 
-      if (token) {
-        await myAxios.delete("user/logout", {
-          headers: getAuthHeaders(),
-        });
-      }
-    } catch (error) {
-      console.error("Erro ao notificar API sobre logout:", error);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("isadmin", data.user.isadmin);
+
+      
+      toast.success("Login realizado com sucesso!");
+      navigate("/stock-control/dashboard");
+    } catch (err) {
+      setError(true);
+      toast.error("Erro ao fazer login!");
+    } finally {
+      setIsLoading(false);
     }
-  },
-};
+  };
 
-export default AuthService;
+  // Função para lidar com o logout do utilizador
+  const logout = async () => {
+    setIsLoading(true);
+    try {
+      await AuthService.logout();
+    } catch (error) {
+      console.error("Erro ao chamar API de logout:", error);
+    } finally {
+      localStorage.clear();
+      toast.success("Logout realizado com sucesso!");
+      navigate("/");
+      setIsLoading(false);
+    }
+  };
+
+  return {
+    user,
+    setUser,
+    password,
+    setPassword,
+    handleLogin,
+    error,
+    isLoading,
+    logout,
+  };
+}
