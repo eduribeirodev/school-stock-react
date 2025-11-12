@@ -67,6 +67,7 @@ export default function ExitsTable({
                             <th className="pb-2 text-center text-sm font-medium text-gray-600">Produto</th>
                             <th className="pb-2 text-center text-sm font-medium text-gray-600">Qtd.</th>
                             <th className="pb-2 text-center text-sm font-medium text-gray-600">Valor Total</th> 
+                            <th className="pb-2 text-center text-sm font-medium text-gray-600">Método de Pagamento</th> 
                             <th className="pb-2 text-center text-sm font-medium text-gray-600">Funcionário</th>
                         </tr>
                     </thead>
@@ -81,6 +82,9 @@ export default function ExitsTable({
                                 <td className="py-2 text-center text-sm font-semibold">
                                     R$ {parseFloat(exit.price || 0).toFixed(2)}
                                 </td> 
+                                <td className="py-2 text-center text-sm">
+                                    {exit.payment_method === 'Currency' ? 'Dinheiro' : exit.payment_method}
+                                </td>
                                 <td className="py-2 text-center text-sm">{exit.user?.name || 'Desconhecido'}</td>
                                 
                                 {/* <td className="py-2 text-center space-x-2">
