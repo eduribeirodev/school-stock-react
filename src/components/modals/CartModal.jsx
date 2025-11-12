@@ -83,8 +83,7 @@ export default function CartModal({ isOpen, onClose, items = [], onRemove, onChe
                         className="w-full border rounded-md px-3 py-2 bg-white"
                     >
                         <option value="PIX">PIX</option>
-                        <option value="CARTAO">Cartão</option>
-                        <option value="DINHEIRO">Dinheiro</option>
+                        <option value="Currency">Dinheiro</option>
                     </select>
                 </div>
 
