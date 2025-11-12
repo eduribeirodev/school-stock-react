@@ -1,6 +1,5 @@
 
 import { ShoppingCart } from 'lucide-react'; 
-import { toast } from 'sonner';
 
 
 
@@ -33,7 +32,6 @@ export default function SalesCard({ category, productName, price, stock, onAddCl
                 <button
                     onClick={() => {
                         onAddClick(); 
-                        toast.success("Item adicionado no carrinho com sucesso"); 
                     }}
                     className="w-full flex items-center justify-center px-3 py-2 bg-red-600 text-white text-sm font-semibold rounded-md hover:bg-red-700 transition-colors"
                 >
