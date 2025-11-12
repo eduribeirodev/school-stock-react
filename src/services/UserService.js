@@ -24,7 +24,7 @@ const UserService = {
       headers: getAuthHeaders(), 
       params: { page, limit },
     });
-    return response.data.data;
+    return response;
   },
 
   // Função para remover um utilizador
