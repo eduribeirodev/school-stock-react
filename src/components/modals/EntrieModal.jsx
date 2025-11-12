@@ -70,7 +70,7 @@ export default function EntrieModal({ isOpen, onClose, products = [], suppliers 
 
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={onClose}>
+        <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={onClose}>
             <div className="bg-white p-6 rounded-lg shadow-2xl w-full max-w-2xl overflow-y-auto max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
                 
                 <div className="flex justify-between items-center border-b pb-3 mb-4">
@@ -186,7 +186,7 @@ export default function EntrieModal({ isOpen, onClose, products = [], suppliers 
                     <button
                         type="button"
                         onClick={handleAddItem}
-                        className="flex items-center justify-center mt-3 px-4 py-2 text-sm font-medium text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition"
+                        className="flex items-center justify-center mt-3 px-4 py-2 text-sm font-medium text-red-600 border border-red-600 rounded-lg hover:bg-blue-50 transition"
                     >
                         <LuPlus size={16} className="mr-1"/> Adicionar Produto
                     </button>
