@@ -21,6 +21,7 @@ export default function Sales() {
     const { products, isLoading, error } = useProduct(1, 1000); 
     const { checkoutSale } = useSale();
 
+    const totalItemsInCart = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
     function handleRemoveItem(id) {
         setCartItems(cartItems.filter(item => item.id !== id));
@@ -54,39 +55,45 @@ export default function Sales() {
     }
     
     function handleAddClick(product) {
-        const existingItem = cartItems.find(item => item.id === product.id);
-        const maxStock = product.quantity || 0; 
-        
-        const categoryName = product.category?.category_name;
-        const categoryHex = product.category?.color;
+        const existingItem = cartItems.find(item => item.id === product.id);
+        const maxStock = product.quantity || 0; 
+        
+        const categoryName = product.category?.category_name;
+        const categoryHex = product.category?.color;
 
-        if (existingItem) {
-            if (existingItem.quantity >= maxStock) {
-                toast.error(`Estoque máximo atingido para ${product.product_name}!`);
-                return;
-            }
-            const updatedItems = cartItems.map(item =>
-                item.id === product.id
-                    ? { ...item, quantity: item.quantity + 1 }
-                    : item
-            );
-            setCartItems(updatedItems);
-        } else {
-            if (maxStock <= 0) {
-                toast.error(`Produto ${product.product_name} esgotado!`);
-                return;
-            }
-            setCartItems([...cartItems, { 
-                id: product.id, 
-                name: product.product_name, 
-                price: product.price,       
-                quantity: 1,
-                maxStock: maxStock, 
-                category_name: categoryName,
-                color: categoryHex          
-            }]);
-        }
-    }
+        if (existingItem) {
+            if (existingItem.quantity >= maxStock) {
+                toast.error(`Estoque máximo atingido para ${product.product_name}!`);
+                return; 
+            }
+            
+            const updatedItems = cartItems.map(item =>
+                item.id === product.id
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item
+            );
+            
+            setCartItems(updatedItems);
+            toast.success(`+1 ${product.product_name} no carrinho!`); 
+
+        } else {
+            if (maxStock <= 0) {
+               toast.error(`Produto ${product.product_name} esgotado!`);
+                return; 
+            }
+
+            setCartItems([...cartItems, { 
+                id: product.id, 
+                name: product.product_name, 
+                price: product.price,       
+                quantity: 1,
+                maxStock: maxStock, 
+                category_name: categoryName,
+                color: categoryHex          
+            }]);
+            toast.success(`${product.product_name} adicionado ao carrinho`);
+        }
+    }
 
     const handleFinalizeSale = async (saleData) => {
         try {
@@ -118,7 +125,7 @@ export default function Sales() {
                 title="Vendas"
                 SubTitle="Sistema de vendas de produtos consumíveis"
                 iconButton={ShoppingCart}
-                titleButton={`Carrinho (${cartItems.length})`}
+                titleButton={`Carrinho (${totalItemsInCart})`}
                 functionButton={() => setIsCartOpen(true)}
             />
             
