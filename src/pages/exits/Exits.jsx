@@ -42,7 +42,6 @@ export default function Exits() {
             onPageChange(newPage);
         }
     };
-    
     const handleEditClick = (exitData) => {
         setEditingExit(exitData); 
         setIsEditModalOpen(true);
