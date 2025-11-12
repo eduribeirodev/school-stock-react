@@ -112,9 +112,7 @@ export default function ExitModal({ isOpen, onClose, products = [], onSubmit }) 
                             className="w-full border rounded-lg px-3 py-2 bg-gray-50"
                         >
                             <option value="PIX">PIX</option>
-                            <option value="CC">Cartão de Crédito</option>
-                            <option value="CD">Cartão de Débito</option>
-                            <option value="VA">Dinheiro</option>
+                            <option value="Currency">Dinheiro</option>
                         </select>
                     </div>
 
