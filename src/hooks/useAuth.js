@@ -16,7 +16,7 @@ export default function useAuth() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError(false);
+    setError(null);
 
     try {
       const data = await AuthService.login(user, password);
@@ -29,7 +29,7 @@ export default function useAuth() {
       toast.success("Login realizado com sucesso!");
       navigate("/stock-control/dashboard");
     } catch (err) {
-      setError(true);
+      setError("Credencias Inválidas");
       toast.error("Erro ao fazer login!");
     } finally {
       setIsLoading(false);
