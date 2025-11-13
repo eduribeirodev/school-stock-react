@@ -104,11 +104,13 @@ export default function Home() {
 <section className="flex flex-wrap justify-center items-center gap-10 mt-10">
   <GraphicCard
     data={chartInfo.productChart}
-    title="Vendas por Produto (Unidades)"
+    title=" Produtos mais Vendidos"
+    titleTable="Produto"
   />
   <GraphicCard
     data={chartInfo.categoryChart}
-    title="Vendas por Categoria (Unidades)"
+    title="Categorias em Alta"
+    titleTable="Categoria"
   />
 </section>
 

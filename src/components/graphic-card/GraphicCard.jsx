@@ -10,10 +10,13 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-export default function GraphicCard({ data = [], title = "Gráfico de Vendas" }) {
+// Constante para definir o limite de itens a serem exibidos.
+const MAX_ITEMS = 3;
+
+export default function GraphicCard({ data = [], title = "Gráfico de Vendas", titleTable  }) {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-    const formattedData = data.map(item => {
+    const rawFormattedData = data.map(item => {
         const nameKey = item.product_name || item.category_name;
         
         return {
@@ -22,6 +25,10 @@ export default function GraphicCard({ data = [], title = "Gráfico de Vendas" })
             color: item.color ? `#${item.color}` : '#3B82F6', 
         };
     });
+
+    const sortedData = rawFormattedData.sort((a, b) => b.valor - a.valor);
+
+    const formattedData = sortedData.slice(0, MAX_ITEMS);
 
     useEffect(() => {
         const updateDimensions = () => {
@@ -42,7 +49,7 @@ export default function GraphicCard({ data = [], title = "Gráfico de Vendas" })
         };
     }, []); 
 
-    const CustomTooltip = ({ active, payload, label }) => {
+    const CustomTooltip = ({ active, payload, label}) => {
         if (active && payload && payload.length) {
             return (
                 <div className="p-2 bg-white border border-gray-300 rounded-md shadow-lg text-sm">
@@ -57,7 +64,7 @@ export default function GraphicCard({ data = [], title = "Gráfico de Vendas" })
     return (
         <div
             className="flex flex-col p-4 bg-white/80 rounded-xl shadow-xl transition-shadow hover:shadow-2xl" 
-            style={{ width: "40%", height: "350px", minWidth: "350px" }}
+            style={{ width: "40%", height: "400px", minWidth: "350px" }}
         >
             <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">{title}</h3> 
 
@@ -67,18 +74,22 @@ export default function GraphicCard({ data = [], title = "Gráfico de Vendas" })
                         
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
                         
-                        <XAxis dataKey="name" angle={360} textAnchor="middle" height={40} stroke="#6B7280" interval={0} style={{ fontSize: '16px' }} /> 
+                        <XAxis dataKey="name" angle={0} textAnchor="middle" height={50} stroke="#6B7280" interval={0} style={{ fontSize: '14px' }} /> 
                         
                         <YAxis stroke="#6B7280" axisLine={false} tickLine={false} />
                         
                         <Tooltip content={<CustomTooltip />} />
                         
-                        <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
+                        <Legend className=""
+                        wrapperStyle={{ fontSize: '18px', alignItems: "center", marginLeft: "22px", }} />
                         
-                        <Bar 
+                        <Bar
+                        
+                    
                             dataKey="valor" 
-                            name="Total Vendido" 
+                            name={`${titleTable}`} 
                             fill="#c41414"
+                            
                         /> 
                     </BarChart>
                 ) : (
