@@ -149,12 +149,6 @@ export default function Sales() {
                     <p className="col-span-full text-center text-lg text-gray-600">Carregando produtos...</p>
                 )}
                 
-                {error && (
-                    <p className="col-span-full text-center text-lg text-red-600">
-                        Erro ao carregar dados: Verifique a conexão com a API.
-                    </p>
-                )}
-                
                 {!isLoading && products.length > 0 ? (
                     (filteredProducts || []).map((product) => (
                         <SalesCard
