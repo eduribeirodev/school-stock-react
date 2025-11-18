@@ -62,42 +62,31 @@ export default function GraphicCard({ data = [], title = "Gráfico de Vendas", t
     };
 
     return (
-        <div
-            className="flex flex-col p-4 bg-white/80 rounded-xl shadow-xl transition-shadow hover:shadow-2xl" 
-            style={{ width: "40%", height: "400px", minWidth: "350px" }}
-        >
-            <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">{title}</h3> 
+  <div
+    className="relative flex flex-col p-4 bg-white/80 rounded-xl shadow-xl transition-shadow hover:shadow-2xl"
+    style={{ width: "40%", height: "400px", minWidth: "350px" }}
+  >
+    <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">{title}</h3>
 
-            <ResponsiveContainer width="100%" height="100%">
-                {formattedData.length > 0 ? (
-                    <BarChart data={formattedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                        
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-                        
-                        <XAxis dataKey="name" angle={0} textAnchor="middle" height={50} stroke="#6B7280" interval={0} style={{ fontSize: '14px' }} /> 
-                        
-                        <YAxis stroke="#6B7280" axisLine={false} tickLine={false} />
-                        
-                        <Tooltip content={<CustomTooltip />} />
-                        
-                        <Legend className=""
-                        wrapperStyle={{ fontSize: '18px', alignItems: "center", marginLeft: "22px", }} />
-                        
-                        <Bar
-                        
-                    
-                            dataKey="valor" 
-                            name={`${titleTable}`} 
-                            fill="#c41414"
-                            
-                        /> 
-                    </BarChart>
-                ) : (
-                    <div className="flex items-center justify-center h-full text-gray-500">
-                        Nenhum dado de venda disponível.
-                    </div>
-                )}
-            </ResponsiveContainer>
+    {formattedData.length > 0 ? (
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={formattedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+          <XAxis dataKey="name" angle={0} textAnchor="middle" height={50} stroke="#6B7280" interval={0} style={{ fontSize: '14px' }} />
+          <YAxis stroke="#6B7280" axisLine={false} tickLine={false} />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend wrapperStyle={{ fontSize: '18px', alignItems: "center", marginLeft: "22px" }} />
+          <Bar dataKey="valor" name={`${titleTable}`} fill="#c41414" />
+        </BarChart>
+      </ResponsiveContainer>
+    ) : (
+      <div className="flex-1 flex items-center justify-center">
+        <div className="text-center text-gray-500">
+          Nenhum dado disponível.
         </div>
-    );
+      </div>
+    )}
+  </div>
+);
+    
 }
