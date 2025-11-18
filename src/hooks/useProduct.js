@@ -34,7 +34,6 @@ export default function useProduct(currentPage = 1, pageSize = 10) {
     } catch (err) {
       console.error("Erro ao buscar produtos:", err);
       setError("Erro ao carregar produtos.");
-      toast.error("Erro ao carregar produtos!");
       setProducts([]);
       setTotalProductsCount(0);
       setTotalPages(1);
